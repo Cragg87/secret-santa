@@ -33,10 +33,11 @@ class NameRepository
     return name
   end
 
-  # Add more methods below for each operation you'd like to implement.
-
-  # def create(student)
-  # end
+  def create(name)
+    sql = 'INSERT INTO names (name, postcode) VALUES ($1, $2);'
+    params = [name.name, name.postcode]
+    DatabaseConnection.exec_params(sql, params)
+  end
 
   # def update(student)
   # end

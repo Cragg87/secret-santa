@@ -24,4 +24,17 @@ RSpec.describe NameRepository do
     expect(repo.find(1).name).to eq 'Simon'
   end
 
+  it 'adds a new name' do
+    repo = NameRepository.new
+    new_name = Name.new
+    new_name.name = 'Joseph'
+    new_name.postcode = 'CB1 1AA'
+    
+    repo.create(new_name)
+
+    names = repo.all
+    last_name = names.last
+    expect(last_name.name).to eq 'Joseph'
+    expect(last_name.postcode).to eq 'CB1 1AA'
+  end
 end
