@@ -23,10 +23,14 @@ class NameRepository
   # Gets a single record by its ID
   # One argument: the id (number)
   def find(id)
-    # Executes the SQL query:
-    # SELECT id, name, cohort_name FROM students WHERE id = $1;
-
-    # Returns a single Student object.
+    sql = 'SELECT name, postcode FROM names WHERE id = $1;'
+    params = [id]
+    result = DatabaseConnection.exec_params(sql, params)
+    record = result[0]
+    name = Name.new
+    name.name = record['name']
+    name.postcode = record['postcode']
+    return name
   end
 
   # Add more methods below for each operation you'd like to implement.

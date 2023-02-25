@@ -15,6 +15,13 @@ RSpec.describe NameRepository do
     repo = NameRepository.new
     names = repo.all
     expect(names.length).to eq 9
+    expect(names[0].name).to eq 'Simon'
+    expect(names[0].postcode).to eq 'CB1 1AA'
+  end
+
+  it 'gets a specific name' do
+    repo = NameRepository.new
+    expect(repo.find(1).name).to eq 'Simon'
   end
 
 end
