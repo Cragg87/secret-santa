@@ -45,4 +45,13 @@ RSpec.describe NameRepository do
     expect(results[0].name).to eq 'Simon'
     expect(results[1].name).to eq 'Sam'
   end
+
+  it 'returns all entries except those with given postcode' do
+    repo = NameRepository.new
+    results = repo.find_by_different_postcode('CB1 1AA')
+    expect(results.length).to eq 7
+    expect(results[0].name).to eq 'Lauren'
+    expect(results[1].name).to eq 'Miles'
+    expect(results.last.name).to eq 'Pete'
+  end
 end
