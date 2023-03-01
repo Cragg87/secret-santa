@@ -11,7 +11,7 @@ RSpec.describe NameRepository do
     reset_names_table
   end
 
-  it 'gets all names' do
+  it 'returns all entries' do
     repo = NameRepository.new
     names = repo.all
     expect(names.length).to eq 9
@@ -19,12 +19,12 @@ RSpec.describe NameRepository do
     expect(names[0].postcode).to eq 'CB1 1AA'
   end
 
-  it 'gets a specific name' do
+  it 'returns a specific entry' do
     repo = NameRepository.new
     expect(repo.find(1).name).to eq 'Simon'
   end
 
-  it 'adds a new name' do
+  it 'adds a new entry' do
     repo = NameRepository.new
     new_name = Name.new
     new_name.name = 'Joseph'
@@ -36,5 +36,13 @@ RSpec.describe NameRepository do
     last_name = names.last
     expect(last_name.name).to eq 'Joseph'
     expect(last_name.postcode).to eq 'CB1 1AA'
+  end
+
+  it 'returns all entries with the same postcode' do
+    repo = NameRepository.new
+    results = repo.find_by_postcode('CB1 1AA')
+    expect(results.length).to eq 2
+    expect(results[0].name).to eq 'Simon'
+    expect(results[1].name).to eq 'Sam'
   end
 end

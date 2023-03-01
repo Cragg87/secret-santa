@@ -33,6 +33,21 @@ class NameRepository
     return name
   end
 
+  def find_by_postcode(postcode)
+    sql = 'SELECT name FROM names WHERE postcode = $1;'
+    params = [postcode]
+    result_set = DatabaseConnection.exec_params(sql, params)
+    
+    names = []
+    
+    result_set.each do |record|
+      name = Name.new
+      name.name = record['name']
+    names << name
+    end
+    return names
+  end
+
   def create(name)
     sql = 'INSERT INTO names (name, postcode) VALUES ($1, $2);'
     params = [name.name, name.postcode]
